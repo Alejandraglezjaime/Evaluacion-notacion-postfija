@@ -16,25 +16,40 @@ def es_operador(cad):
 
 b=["1","2","*","3","4","*","+"]
 
+
+# ************** GENERACION DE CODIGO INTERMEDIO *******************
+
 def evalua_postfija(posfija):
     pila=[]
+    
+    cod_int = []
+    cont = 1
     
     for e in posfija:
         if es_operador(e):
             op2 = pila.pop()
             op1 = pila.pop()
             if e=='+':
-                resultado = float(op1)+float(op2)
+                #resultado = float(op1)+float(op2)
+                resultado='t'+str(cont)+"="+op1+'+'+op2+';'
+                #cod_int.append(resultado)
             elif e=='-':
-                resultado = float(op1)-float(op2)
+                #resultado = float(op1)-float(op2)
+                resultado='t'+str(cont)+"="+op1+'-'+op2+';'
             elif e=='/':
-                resultado = float(op1)/float(op2)
+                #resultado = float(op1)/float(op2)
+                resultado='t'+str(cont)+"="+op1+'/'+op2+';'
             elif e=='*':
-                resultado = float(op1)*float(op2)
-            pila.append(resultado)
-        else: #no es operador por lo tanto es operando 
+                #resultado = float(op1)*float(op2)
+                resultado='t'+str(cont)+"="+op1+'*'+op2+';'
+            cod_int.append(resultado)
+            pila.append('t'+str(cont))
+            
+            cont = cont+1
+        else:
             pila.append(e)
-    return pila[0]
+    return cod_int
+            
     
 print(evalua_postfija(b))
 
